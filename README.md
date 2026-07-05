@@ -1,5 +1,17 @@
 # CareerLink
 
+
+
+
+
+
+
+
+
+
+
+
+
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Private%20Repository-red?style=for-the-badge" alt="Status" />
   <img src="https://img.shields.io/badge/Visibility-Not%20Public-orange?style=for-the-badge" alt="Visibility" />
