@@ -1,0 +1,7 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+backend/venv/
+venv/
+__pycache__/
+*.pyc
+placement.db
+.env
