@@ -2,8 +2,6 @@
 
 ## Overview
 
-
-
 CareerLink is a modern **Placement Portal Application (PPA)** designed to digitize and streamline campus recruitment activities involving students, companies, and administrators.
 
 The platform provides a centralized system for managing:
