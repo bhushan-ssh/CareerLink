@@ -1,1189 +1,606 @@
-# CareerLink 
+# CareerLink
 
+> A full-stack placement portal for managing students, companies, job opportunities, applications, and placement records.
 
-
+[![Vue.js](https://img.shields.io/badge/Frontend-Vue.js%203-42b883?logo=vue.js&logoColor=white)](https://vuejs.org/)
+[![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Redis](https://img.shields.io/badge/Cache%2FBroker-Redis-dc382d?logo=redis&logoColor=white)](https://redis.io/)
+[![Celery](https://img.shields.io/badge/Tasks-Celery-37814a?logo=celery&logoColor=white)](https://docs.celeryq.dev/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Overview
 
-CareerLink is a modern **Placement Portal Application (PPA)** designed to digitize and streamline campus recruitment activities involving students, companies, and administrators.
+CareerLink is an academic full-stack web application that digitizes common campus-placement workflows.
 
-The platform provides a centralized system for managing:
+The application provides separate experiences for three roles:
 
-* Student profiles
-* Company registration and approval
-* Placement drives
-* Job listings
-* Student applications
-* Application status tracking
-* Placement records
-* Administrative management
-* CSV data exports
-* Background processing and scheduled tasks
+- **Student** — maintain a profile, browse jobs, apply, and track applications.
+- **Company** — manage a company profile, create job postings, review applicants, and update application statuses.
+- **Admin** — monitor platform statistics and manage companies, students, jobs, applications, and placements.
 
-The project follows a separated **frontend and backend architecture**, providing a scalable structure with a RESTful backend API and a reactive Single Page Application frontend.
+The frontend is a Vue 3 single-page application. The backend exposes a Flask-RESTful API backed by SQLite and SQLAlchemy. Redis is used as the cache and Celery message broker, while Celery/Celery Beat handle asynchronous and scheduled tasks.
 
-The system supports three major user roles:
+## Key Features
 
-* **Admin**
-* **Student**
-* **Company**
+### Student
 
-The backend is implemented using Flask and Flask-RESTful, while the frontend is developed using Vue.js 3 and Vite. Redis and Celery are used for caching and asynchronous background processing.
+- Registration and token-based authentication
+- Academic/profile information
+- Job and placement-drive discovery
+- Job applications
+- Application-status tracking
+- Resume information
+- Application CSV export
 
----
+### Company
 
-## 🚀 Project Overview
+- Company registration and profile management
+- Admin approval workflow
+- Job/placement-drive creation and editing
+- Applicant listing
+- Application-status updates
+- Interview date and feedback fields
+- Application CSV export
 
-CareerLink acts as a centralized bridge between educational institutions, students, and recruiting companies.
+### Admin
 
-The platform digitizes the traditional placement process by allowing:
+- Dashboard statistics
+- Company approval/revocation
+- Student activation/deactivation
+- Job activation/deactivation/removal
+- Application monitoring
+- Placement-history management
 
-### 🎓 Students
+### Platform
 
-* Create and manage academic profiles
-* Browse active placement drives
-* Apply for jobs
-* Track application status
-* View placement-related information
+- REST API with role-based access control
+- SQLite database with SQLAlchemy ORM
+- Redis caching
+- Celery background jobs
+- Celery Beat scheduled jobs
+- Asynchronous CSV export
+- HTML monthly activity reports
+- Scheduled interview-reminder task
 
-### 🏢 Companies
+## Screenshots
 
-* Maintain company profiles
-* Create placement drives
-* Publish job opportunities
-* View applicants
-* Process applications
-* Shortlist or reject candidates
+The screenshots below show the main application interfaces.
 
-### 👨‍💼 Administrators
+### Landing Page
 
-* Manage students
-* Manage companies
-* Approve or revoke companies
-* Moderate placement drives
-* Monitor system statistics
-* Manage overall placement activity
+<p align="center">
+  <img src="assets/screenshots/landing-page.png" width="90%" alt="CareerLink landing page">
+</p>
 
----
+### Features & Job Search
 
-## 🎯 Problem Statement
+<table>
+  <tr>
+    <td align="center"><b>Features</b></td>
+    <td align="center"><b>Hero / Job Search</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/screenshots/features.png" width="100%" alt="CareerLink features">
+    </td>
+    <td>
+      <img src="assets/screenshots/hero-search.png" width="100%" alt="CareerLink job search">
+    </td>
+  </tr>
+</table>
 
-Institutes often require efficient systems to manage campus recruitment activities involving companies and students.
+### Role Dashboards
 
-Traditional placement management can involve multiple disconnected processes for:
+<table>
+  <tr>
+    <td align="center"><b>Student</b></td>
+    <td align="center"><b>Company</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/screenshots/student-dashboard.png" width="100%" alt="Student dashboard">
+    </td>
+    <td>
+      <img src="assets/screenshots/company-dashboard.png" width="100%" alt="Company dashboard">
+    </td>
+  </tr>
+</table>
 
-* Company approvals
-* Student registration
-* Placement drive creation
-* Job applications
-* Application status tracking
-* Placement records
-* Administrative monitoring
+### Company Jobs & Admin
 
-CareerLink addresses these challenges by providing a centralized Placement Portal Application that digitizes and streamlines the complete recruitment workflow.
+<table>
+  <tr>
+    <td align="center"><b>Company Job Listings</b></td>
+    <td align="center"><b>Admin Dashboard</b></td>
+  </tr>
+  <tr>
+    <td>
+      <img src="assets/screenshots/company-jobs.png" width="100%" alt="Company job listings">
+    </td>
+    <td>
+      <img src="assets/screenshots/admin-dashboard.png" width="100%" alt="Admin dashboard">
+    </td>
+  </tr>
+</table>
 
-The primary objective is to make placement management more organized, efficient, scalable, and easier to monitor.
+## Technology Stack
 
----
+| Layer | Technology |
+|---|---|
+| Frontend | Vue.js 3 |
+| Frontend tooling | Vite |
+| State management | Pinia |
+| Routing | Vue Router |
+| Styling | Bootstrap 5.3 (CDN) + project CSS |
+| Backend | Python, Flask |
+| API | Flask-RESTful |
+| Authentication | Flask-Security-Too |
+| ORM | Flask-SQLAlchemy |
+| Database | SQLite |
+| Cache | Flask-Caching + Redis |
+| Background jobs | Celery |
+| Scheduling | Celery Beat |
+| Message broker / result backend | Redis |
+| Data export | Python CSV library |
+| Reporting | HTML reports |
+| Version control | Git / GitHub |
 
-# 🎯 Objectives
-
-The main objectives of CareerLink are:
-
-* Digitize campus placement activities
-* Provide role-based access for Admin, Student, and Company users
-* Secure the application using token-based authentication
-* Allow companies to manage placement drives
-* Allow students to discover and apply for opportunities
-* Track application status throughout the recruitment lifecycle
-* Maintain historical placement information
-* Provide administrative monitoring and management
-* Support background processing for heavy tasks
-* Improve API performance through caching
-* Generate application data exports
-* Provide a scalable frontend-backend architecture
-
----
-
-# 🏗️ System Architecture
-
-CareerLink follows a separated frontend and backend architecture.
+## Architecture
 
 ```text
-                         CareerLink
-                              |
-                +-------------+-------------+
-                |                           |
-                v                           v
-          Vue.js 3 Frontend          Flask Backend API
-                |                           |
-                |                    Flask-RESTful
-                |                           |
-                |                    Authentication
-                |                           |
-                |                    Flask-Security-Too
-                |                           |
-                |                    Flask-SQLAlchemy
-                |                           |
-                |                           v
-                |                       SQLite
-                |
-                +---------------------------+
-                            |
-                            v
-                       Redis / Celery
-                            |
-                 +----------+----------+
-                 |                     |
-                 v                     v
-          Background Tasks       Caching
+                           CareerLink
+                               |
+              +----------------+----------------+
+              |                                 |
+              v                                 v
+        Vue 3 + Vite                       Flask API
+              |                                 |
+              |                         Flask-RESTful
+              |                                 |
+              |                    Flask-Security-Too
+              |                                 |
+              |                        SQLAlchemy ORM
+              |                                 |
+              |                                 v
+              |                              SQLite
+              |
+              +----------------+----------------+
+                               |
+                               v
+                         Redis + Celery
+                               |
+                 +-------------+-------------+
+                 |                           |
+                 v                           v
+          Background Tasks               Caching
                  |
-                 v
-          CSV Export / Emails
+        +--------+---------+
+        |                  |
+        v                  v
+   CSV Exports       Scheduled Tasks
+                     / Interview Reminders
+                     / Monthly HTML Reports
 ```
 
-The frontend and backend are separated to maintain clear separation of concerns and support scalability.
+The frontend and backend are kept as separate applications. The frontend communicates with the backend through the REST API.
 
----
-
-# 🛠️ Technology Stack
-
-| Category             | Technology                  |
-| -------------------- | --------------------------- |
-| Programming Language | Python 3                    |
-| Backend Framework    | Flask                       |
-| REST API             | Flask-RESTful               |
-| CORS                 | Flask-CORS                  |
-| Database             | SQLite 3                    |
-| ORM                  | Flask-SQLAlchemy            |
-| Authentication       | Flask-Security-Too          |
-| Authentication Type  | Token-based Authentication  |
-| Frontend             | Vue.js 3                    |
-| Frontend API         | Composition API             |
-| Bundler              | Vite                        |
-| Routing              | Vue Router                  |
-| Styling              | Native CSS, Bootstrap       |
-| Task Queue           | Celery                      |
-| Task Scheduling      | Celery Beat                 |
-| Message Broker       | Redis                       |
-| Caching              | Redis, Flask-Caching        |
-| PDF Generation       | FPDF                        |
-| Data Export          | Python CSV Standard Library |
-| Version Control      | Git / GitHub                |
-
-The technology stack is based directly on the project implementation described in the project report.
-
----
-
-# 👥 User Roles
-
-CareerLink provides three primary roles.
-
-## 👨‍💼 Admin
-
-Administrators have centralized control over the placement portal.
-
-### Admin capabilities
-
-* View dashboard statistics
-* Browse students
-* Manage student access
-* Browse companies
-* Approve companies
-* Revoke company approval
-* Moderate placement drives
-* Monitor overall system activity
-
----
-
-## 🎓 Student
-
-Students can use CareerLink to discover and apply for placement opportunities.
-
-### Student capabilities
-
-* Register and authenticate
-* Manage personal and academic profile
-* View active placement drives
-* Apply for placement opportunities
-* View submitted applications
-* Track application status
-
-Application statuses include:
-
-* Applied
-* Shortlisted
-* Selected
-* Rejected
-
----
-
-## 🏢 Company
-
-Companies can use CareerLink to manage their recruitment activities.
-
-### Company capabilities
-
-* Register and authenticate
-* Manage company profile
-* Create placement drives
-* Update placement drives
-* View applicants
-* Process applications
-* Shortlist candidates
-* Reject candidates
-
----
-
-# 🔐 Authentication & Security
-
-CareerLink uses **Flask-Security-Too** for token-based authentication.
-
-The API uses the:
+## Application Workflow
 
 ```text
-Authentication-Token
+Company Registration
+        |
+        v
+   Admin Approval
+        |
+        v
+ Company Creates Job
+        |
+        v
+ Student Browses Jobs
+        |
+        v
+   Student Applies
+        |
+        v
+ Company Reviews Application
+        |
+   +----+---------+----------------+
+   |              |                |
+   v              v                v
+Shortlisted     Rejected        Selected
+   |                               |
+   v                               v
+Interview / Offer              Placement
+        \                         /
+         +-------- Tracking -----+
 ```
 
-header to secure protected endpoints.
+Application statuses implemented by the UI include:
 
-Authentication includes:
+`Applied` → `Shortlisted` → `Interview Scheduled` → `Offer` → `Selected` / `Placed`
 
-```text
-Register
-   |
-   v
-Login
-   |
-   v
-Authentication Token
-   |
-   v
-Protected API Endpoints
-```
+with `Rejected` as an alternative outcome.
 
-The system supports role-based access for:
+## Database Model
 
-* Admin
-* Student
-* Company
+The main entities are:
 
-This ensures that users can access functionality appropriate to their assigned role.
+- `User` — authentication and account state.
+- `Role` — Admin, Student, and Company roles.
+- `Student` — student profile, education, CGPA, skills, experience, and resume filename.
+- `Company` — company profile and approval state.
+- `Job` — company-created job/placement-drive information.
+- `Application` — relationship between a student and a job, including status, feedback, and interview date.
+- `Placement` — records a successful placement associated with a student, company, job, and application.
 
----
-
-# 🗄️ Database Design
-
-The CareerLink database revolves around several interconnected entities.
-
-## User
-
-The base authentication entity containing information such as:
-
-* ID
-* Email
-* Password
-* Active status
-
-## Role & RolesUsers
-
-These entities support role assignment and allow users to be associated with:
-
-* Admin
-* Student
-* Company
-
-## Student
-
-The Student entity has a one-to-one relationship with User.
-
-It stores academic information such as:
-
-* Full name
-* CGPA
-* Education
-
-## Company
-
-The Company entity also has a one-to-one relationship with User.
-
-It stores:
-
-* Company name
-* Industry
-* Location
-* Approval status
-
-## Job
-
-The Job entity represents a placement drive.
-
-It stores:
-
-* Title
-* Description
-* Skills
-* Salary
-* Deadline
-* Active status
-
-Each job is associated with a company.
-
-## Application
-
-Application acts as the connection between Students and Jobs.
-
-It records:
-
-* Student
-* Job
-* Application status
-* Application timestamp
-
-Possible statuses include:
-
-```text
-Applied
-   |
-   +----> Shortlisted
-   |
-   +----> Rejected
-   |
-   +----> Selected
-```
-
-## Placement
-
-The Placement entity maintains historical records of students who were hired by companies through specific jobs.
-
-The database entities and relationships are described in the project report.
-
----
-
-# 🔄 Placement Workflow
-
-The overall placement workflow can be represented as:
-
-```text
-                    Company Registration
-                            |
-                            v
-                    Admin Approval
-                            |
-                            v
-                  Company Creates Job
-                            |
-                            v
-                    Placement Drive
-                            |
-                            v
-                    Student Views Job
-                            |
-                            v
-                    Student Applies
-                            |
-                            v
-                    Company Reviews
-                            |
-              +-------------+-------------+
-              |             |             |
-              v             v             v
-         Shortlisted    Rejected      Selected
-              |                           |
-              |                           v
-              |                       Placement
-              |                           |
-              +-------------+-------------+
-                            |
-                            v
-                    Application Tracking
-```
-
-This workflow allows the platform to track the lifecycle of an application from initial submission through selection or rejection.
-
----
-
-# 🔌 REST API
-
-The CareerLink REST API is prefixed with:
-
-```text
-/api
-```
-
-Protected endpoints use the `Authentication-Token` header.
-
----
-
-## 🔐 Authentication Endpoints
-
-| Method | Endpoint    | Description                                       |
-| ------ | ----------- | ------------------------------------------------- |
-| POST   | `/register` | Register a new Student or Company                 |
-| POST   | `/login`    | Authenticate user and return authentication token |
-
----
-
-## 🎓 Student Endpoints
-
-| Method | Endpoint                | Description                       |
-| ------ | ----------------------- | --------------------------------- |
-| GET    | `/student/profile`      | Retrieve student profile          |
-| PUT    | `/student/profile`      | Update student profile            |
-| GET    | `/student/jobs`         | Fetch active placement drives     |
-| GET    | `/student/applications` | View applications                 |
-| POST   | `/student/applications` | Apply for a placement opportunity |
-
-The student job listing endpoint uses cached active placement-drive data according to the project architecture.
-
----
-
-## 🏢 Company Endpoints
-
-| Method | Endpoint                      | Description                   |
-| ------ | ----------------------------- | ----------------------------- |
-| GET    | `/company/profile`            | Retrieve company profile      |
-| PUT    | `/company/profile`            | Update company profile        |
-| GET    | `/company/jobs`               | View company placement drives |
-| POST   | `/company/jobs`               | Create placement drive        |
-| PUT    | `/company/jobs/`              | Update placement drive        |
-| GET    | `/company/jobs//applications` | View applicants               |
-| PUT    | `/company/applications/`      | Process applications          |
-
-These endpoints allow companies to manage placement drives and process applicants.
-
----
-
-## 👨‍💼 Admin Endpoints
-
-| Method | Endpoint           | Description               |
-| ------ | ------------------ | ------------------------- |
-| GET    | `/admin/dashboard` | View system statistics    |
-| GET    | `/admin/companies` | Browse companies          |
-| POST   | `/admin/companies` | Manage company approval   |
-| GET    | `/admin/students`  | Browse students           |
-| POST   | `/admin/students`  | Manage student access     |
-| GET    | `/admin/jobs`      | Browse placement drives   |
-| POST   | `/admin/jobs`      | Moderate placement drives |
-
-The dashboard and selected API endpoints use caching for frequently accessed information.
-
----
-
-# ⚡ Asynchronous Processing
-
-CareerLink uses **Celery** and **Redis** to move heavy or scheduled operations away from the main Flask web server.
-
-This architecture is useful for operations such as:
-
-* CSV data generation
-* Batch email reminders
-* Scheduled background tasks
-
-The task queue uses Redis as the message broker.
-
----
-
-# 📊 Caching & Performance
-
-Redis and Flask-Caching are used to improve application performance.
-
-Frequently accessed API resources can be cached instead of repeatedly querying the database.
-
-Examples include:
-
-* Job listings
-* Dashboard statistics
-
-This reduces unnecessary database operations and improves response times for frequently requested information.
-
----
-
-# 📤 Export System
-
-CareerLink includes an asynchronous export system for generating application data.
-
-The export workflow is:
-
-```text
-POST /export
-      |
-      v
-Celery Background Job
-      |
-      v
-Generate CSV Data
-      |
-      v
-Check Job Status
-      |
-      v
-Download Generated File
-```
-
-### Export Endpoints
-
-| Method | Endpoint            | Description                 |
-| ------ | ------------------- | --------------------------- |
-| POST   | `/export`           | Submit CSV export task      |
-| GET    | `/export/status/`   | Check background job status |
-| GET    | `/export/download/` | Download generated file     |
-
-The export operation is processed as a Celery batch task rather than blocking the main web server.
-
----
-
-# 📄 Report & PDF Generation
-
-The project includes support for report/PDF generation using:
-
-```text
-FPDF
-```
-
-CSV exports use Python's standard CSV library.
-
-This allows placement-related data to be transformed into downloadable reports and structured datasets.
-
----
-
-# 🎨 Frontend
-
-The CareerLink frontend is built using:
-
-* Vue.js 3
-* Composition API
-* Vite
-* Vue Router
-* Native CSS
-* Bootstrap
-
-The Vue.js Single Page Application provides:
-
-* Reactive user interfaces
-* Client-side routing
-* Dynamic forms
-* Dashboard navigation
-* Role-specific interfaces
-
-The frontend communicates with the Flask REST API to perform application operations.
-
----
-
-# 🖥️ Backend
-
-The backend is implemented using:
-
-* Python 3
-* Flask
-* Flask-RESTful
-* Flask-CORS
-* Flask-SQLAlchemy
-* Flask-Security-Too
-
-The backend provides RESTful API endpoints for:
-
-* Authentication
-* Student management
-* Company management
-* Job management
-* Applications
-* Placements
-* Administration
-* Data exports
-
-Database access is abstracted through Flask-SQLAlchemy ORM.
-
----
-
-# 🧩 Project Architecture
-
-```text
-CareerLink
-│
-├── Frontend
-│   ├── Vue.js 3
-│   ├── Composition API
-│   ├── Vue Router
-│   ├── Vite
-│   ├── Bootstrap
-│   └── Native CSS
-│
-├── Backend
-│   ├── Python 3
-│   ├── Flask
-│   ├── Flask-RESTful
-│   ├── Flask-CORS
-│   ├── Flask-SQLAlchemy
-│   └── Flask-Security-Too
-│
-├── Database
-│   └── SQLite 3
-│
-├── Background Processing
-│   ├── Celery
-│   └── Celery Beat
-│
-├── Broker & Cache
-│   ├── Redis
-│   └── Flask-Caching
-│
-└── Reports & Export
-    ├── FPDF
-    └── CSV
-```
-
----
-
-# 🔄 End-to-End Workflow
-
-```text
-                         CAREERLINK
-                              |
-                              v
-                     User Authentication
-                              |
-                 +------------+------------+
-                 |            |            |
-                 v            v            v
-              Admin        Student      Company
-                 |            |            |
-                 |            v            |
-                 |      Browse Jobs        |
-                 |            |            v
-                 |            |       Create Jobs
-                 |            |            |
-                 |            v            |
-                 |       Apply for Job <---+
-                 |            |
-                 |            v
-                 |      Application
-                 |        Tracking
-                 |            |
-                 |            v
-                 |        Selection
-                 |            |
-                 +------------+
-                              |
-                              v
-                         Placement
-                              |
-                              v
-                    Historical Records
-```
-
----
-
-# 📈 Performance Architecture
-
-CareerLink uses multiple techniques to improve application performance and scalability.
-
-### REST API
-
-Flask-RESTful provides a structured API layer between the frontend and backend.
-
-### ORM
-
-Flask-SQLAlchemy provides abstraction over database operations.
-
-### Caching
-
-Redis and Flask-Caching reduce repeated database queries for frequently accessed information.
-
-### Background Tasks
-
-Celery allows resource-intensive operations to run asynchronously.
-
-### Scheduled Tasks
-
-Celery Beat supports scheduled operations such as recurring background jobs.
-
-This architecture separates user-facing request processing from computationally heavier background work.
-
----
-
-# 🔐 Security Architecture
-
-The project uses token-based authentication through Flask-Security-Too.
+Simplified relationship:
 
 ```text
 User
- |
- v
-Login
- |
- v
-Authentication Token
- |
- v
-Authentication-Token Header
- |
- v
-Protected REST API
- |
- v
-Role-Based Access
- |
- +----> Admin
- |
- +----> Student
- |
- +----> Company
+├── Student
+│    ├── Applications ──> Job
+│    └── Placement
+│
+├── Company
+│    ├── Jobs ──> Applications
+│    └── Placements
+│
+└── Roles
 ```
 
-This provides controlled access to role-specific resources and API operations.
+## Background Processing
 
----
+CareerLink uses Celery with Redis for operations that do not need to block a normal web request.
 
-# 📚 Core Database Relationships
+### CSV export
+
+A student or company can submit an export request. The export is generated by a Celery task and can then be downloaded through the API.
 
 ```text
-                 User
-                  |
-          +-------+-------+
-          |       |       |
-          v       v       v
-       Student  Company   Role
-          |        |
-          |        v
-          |       Job
-          |        |
-          |        |
-          +------> Application
-                     |
-                     v
-                 Placement
+POST /api/export
+       |
+       v
+Celery task
+       |
+       v
+Generate CSV
+       |
+       v
+Poll task status
+       |
+       v
+Download file
 ```
 
-### Relationship Summary
+### Scheduled tasks
 
-| Entity                | Relationship      |
-| --------------------- | ----------------- |
-| User → Student        | One-to-One        |
-| User → Company        | One-to-One        |
-| User → Role           | Role assignment   |
-| Company → Job         | Many-to-One       |
-| Student → Application | One-to-Many       |
-| Job → Application     | One-to-Many       |
-| Student → Placement   | Placement history |
-| Company → Placement   | Placement history |
-| Job → Placement       | Placement history |
+Celery Beat is configured with:
 
-The core entity relationships are based on the database design described in the project report.
+- A daily interview-reminder task.
+- A monthly placement-activity report task.
 
----
+The monthly report currently generates an **HTML report**. The repository does not implement a general PDF-report generation pipeline, so this README does not describe PDF generation as an implemented feature.
 
-# 🧪 Key Functional Areas
+> **Note:** The interview-reminder code currently uses a Google Chat webhook for demonstration purposes. It should be replaced with environment-based configuration before production use.
 
-CareerLink covers the following functional areas:
+## Caching
 
-| Module                 | Functionality                           |
-| ---------------------- | --------------------------------------- |
-| Authentication         | Registration and login                  |
-| Authorization          | Role-based access                       |
-| Student Management     | Academic profile management             |
-| Company Management     | Company profile management              |
-| Job Management         | Placement drive creation and management |
-| Application Management | Job applications and status tracking    |
-| Placement Management   | Historical placement records            |
-| Administration         | Platform-level management               |
-| Caching                | Faster access to frequently used data   |
-| Background Tasks       | Asynchronous processing                 |
-| Export                 | Application CSV generation              |
-| Reports                | PDF/report generation                   |
+Flask-Caching is configured with Redis.
 
----
+The backend uses caching for selected frequently accessed data, including job/dashboard-related API responses. Cache configuration currently points to Redis database `3`.
 
-# 💡 Key Features
+Celery uses separate Redis databases for its broker and result backend.
 
-## 🎓 Student Features
+## REST API
 
-* Student registration
-* Secure authentication
-* Academic profile management
-* Placement drive discovery
-* Job applications
-* Application status tracking
-* Placement information
-
-## 🏢 Company Features
-
-* Company registration
-* Company approval workflow
-* Company profile management
-* Placement drive creation
-* Placement drive updates
-* Applicant management
-* Application processing
-
-## 👨‍💼 Admin Features
-
-* Dashboard statistics
-* Company management
-* Company approval/revocation
-* Student management
-* Student access management
-* Job moderation
-
-## ⚙️ System Features
-
-* RESTful API
-* Token-based authentication
-* Role-based access
-* Redis caching
-* Celery background tasks
-* Celery Beat scheduling
-* CSV exports
-* PDF/report generation
-
----
-
-# 📊 Project Workflow Summary
-
-```text
-                 User Registration
-                        |
-                        v
-                 Authentication
-                        |
-          +-------------+-------------+
-          |             |             |
-          v             v             v
-        Admin        Student       Company
-          |             |             |
-          |             v             |
-          |        Browse Jobs        |
-          |             |             v
-          |             |       Create Placement
-          |             |             |
-          |             v             |
-          |          Apply <----------+
-          |             |
-          |             v
-          |       Application Review
-          |             |
-          |       +-----+-----+
-          |       |           |
-          |       v           v
-          |   Shortlisted   Rejected
-          |       |
-          |       v
-          |    Selected
-          |       |
-          |       v
-          |   Placement
-          |
-          v
-      Administration
-          |
-          v
-   Dashboard / Reports
-```
-
----
-
-# 🚀 Scalability & Performance
-
-The application architecture was designed with scalability in mind.
-
-The separation of frontend and backend allows each component to evolve independently.
-
-Performance improvements include:
-
-* Redis-based caching
-* Flask-Caching
-* Asynchronous Celery tasks
-* Redis message broker
-* Scheduled background operations
-* ORM-based database abstraction
-
-Frequently accessed resources such as job listings and dashboard statistics can be cached, while expensive operations such as CSV generation are handled asynchronously.
-
----
-
-# 📁 Project Components
-
-The project is organized around the following major components:
-
-```text
-CareerLink
-│
-├── Backend
-│   ├── REST API
-│   ├── Authentication
-│   ├── Database Models
-│   ├── Business Logic
-│   └── Background Tasks
-│
-├── Frontend
-│   ├── Vue Components
-│   ├── Dashboards
-│   ├── Forms
-│   └── Routing
-│
-├── Database
-│   └── SQLite
-│
-├── Cache / Broker
-│   └── Redis
-│
-└── Reports / Exports
-    ├── CSV
-    └── PDF
-```
-
----
-
-# 🧰 Development Tools
-
-The project uses the following development technologies:
-
-* Python 3
-* Flask
-* Flask-RESTful
-* Flask-SQLAlchemy
-* Flask-Security-Too
-* Vue.js 3
-* Vite
-* Vue Router
-* Bootstrap
-* Celery
-* Celery Beat
-* Redis
-* Flask-Caching
-* FPDF
-* Git
-* GitHub
-
----
-
-# 📌 API Design Summary
-
-CareerLink follows a REST-oriented API design.
+The API is mounted under:
 
 ```text
 /api
-│
-├── Authentication
-│   ├── /register
-│   └── /login
-│
-├── Student
-│   ├── /student/profile
-│   ├── /student/jobs
-│   └── /student/applications
-│
-├── Company
-│   ├── /company/profile
-│   ├── /company/jobs
-│   └── /company/applications
-│
-├── Admin
-│   ├── /admin/dashboard
-│   ├── /admin/companies
-│   ├── /admin/students
-│   └── /admin/jobs
-│
-└── Export
-    ├── /export
-    ├── /export/status/
-    └── /export/download/
 ```
 
----
+### Authentication
 
-# 🤖 AI/LLM Usage
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/login` | Authenticate a user |
+| POST | `/api/logout` | Log out |
+| POST | `/api/register` | Register a student or company |
+| GET | `/api/check_email` | Check email availability |
 
-AI tools were used as development assistance during the project.
+Protected requests use the `Authentication-Token` header.
 
-According to the project declaration, ChatGPT was used for:
+### Student
 
-* SQLAlchemy model definition assistance
-* API documentation examples
-* Variable naming consistency
-* Documentation formatting
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/student_profile` | Get student profile |
+| PUT | `/api/student_profile` | Update student profile |
+| GET | `/api/student/jobs` | List jobs |
+| GET | `/api/student/applications` | List applications |
+| POST | `/api/student/jobs/<job_id>/apply` | Apply for a job |
 
-The reported AI/LLM usage was approximately **15–20%**, limited primarily to code suggestions and documentation assistance.
+### Company
 
-The final implementation logic, debugging, and integration were completed manually.
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/company_profile` | Get company profile |
+| PUT | `/api/company_profile` | Update company profile |
+| GET | `/api/company/jobs` | List company jobs |
+| POST | `/api/company/jobs` | Create a job |
+| PUT | `/api/company/jobs/<job_id>` | Update a job |
+| GET | `/api/company/jobs/<job_id>/applications` | View applicants |
+| PUT | `/api/company/applications/<app_id>` | Update an application |
 
----
+### Admin
 
-# 🎥 Project Presentation
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/admin/stats` | Dashboard statistics |
+| GET/POST | `/api/admin/companies` | Manage companies |
+| GET/POST | `/api/admin/students` | Manage students |
+| GET/POST | `/api/admin/jobs` | Manage jobs |
+| GET/POST | `/api/admin/applications` | Manage applications |
+| GET/POST | `/api/admin/placements` | Manage placements |
 
-A project presentation video is included/referenced in the project report as:
+### Export
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/export` | Start an application CSV export |
+| GET | `/api/export/status/<task_id>` | Check export task status |
+| GET | `/api/export/download/<file_name>` | Download generated CSV |
+
+## Project Structure
 
 ```text
-CareerLink Demo.mp4
+CareerLink/
+├── backend/
+│   ├── app.py
+│   ├── requirements.txt
+│   ├── controllers/
+│   │   ├── models.py
+│   │   ├── auth_api.py
+│   │   ├── student_api.py
+│   │   ├── company_api.py
+│   │   ├── admin_api.py
+│   │   ├── export_api.py
+│   │   ├── cache.py
+│   │   ├── celery_app.py
+│   │   ├── tasks.py
+│   │   └── config.py
+│   ├── instance/
+│   │   └── site.db
+│   └── exports/
+│
+├── frontend/
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── index.html
+│   └── src/
+│       ├── views/
+│       ├── router/
+│       ├── stores/
+│       └── main.js
+│
+├── assets/
+│   └── screenshots/
+│
+├── LICENSE
+└── README.md
 ```
 
-The report identifies this as the project's video presentation.
+## How to Run
 
----
+### Prerequisites
 
-# 🔮 Future Improvements
+Install:
 
-Potential future improvements for CareerLink include:
+- Python 3.x
+- Node.js compatible with the frontend requirement (`20.19+` or `22.12+`)
+- npm
+- Redis Server
+- Git
 
-* Advanced student skill matching
-* Automated candidate ranking
-* AI-powered job recommendations
-* Resume parsing
-* Resume-to-job matching
-* Advanced placement analytics
-* Company-wise placement statistics
-* Student performance analytics
-* Email notification improvements
-* Real-time notifications
-* PostgreSQL support for larger deployments
-* Containerized deployment using Docker
-* Cloud deployment
-* Advanced monitoring and logging
-* More comprehensive automated testing
+### 1. Clone the repository
 
-These are proposed future enhancements and are not claimed as currently implemented features.
+```bash
+git clone https://github.com/bhushan-ssh/CareerLink.git
+cd CareerLink
+```
 
----
+### 2. Start Redis
 
-# ⚠️ Limitations
-
-The current project architecture has some areas that could be extended for production-scale deployment.
-
-### Database
-
-The project uses SQLite, which is suitable for development and smaller deployments but could be replaced with a production-grade relational database for larger workloads.
-
-### Analytics
-
-The current system focuses primarily on placement management and tracking. More advanced analytics could be added in future versions.
-
-### Recommendation Engine
-
-The current architecture does not document an AI-based recommendation engine. Intelligent student-job matching could be introduced as a future enhancement.
-
-### Testing
-
-Additional automated unit, integration, and end-to-end testing could strengthen the system.
-
----
-
-# 🎓 Learning Outcomes
-
-This project demonstrates practical implementation of:
-
-* Full-stack web development
-* REST API development
-* Role-based authentication
-* Database modeling
-* Object-relational mapping
-* Frontend-backend integration
-* Asynchronous task processing
-* Task scheduling
-* Redis caching
-* API design
-* Data export
-* PDF generation
-* Software architecture
-* Git and GitHub based development
-
----
-
-# 📌 Key Takeaways
-
-### 1. Role-Based Placement Management
-
-CareerLink provides separate workflows for Admin, Student, and Company users.
-
-### 2. RESTful Backend
-
-The Flask backend provides structured API endpoints for authentication, profiles, jobs, applications, administration, and exports.
-
-### 3. Reactive Frontend
-
-Vue.js 3 provides a modern Single Page Application experience.
-
-### 4. Asynchronous Processing
-
-Celery and Redis prevent resource-intensive background operations from blocking the main web server.
-
-### 5. Performance Optimization
-
-Redis and Flask-Caching improve performance for frequently accessed resources.
-
-### 6. Application Lifecycle Tracking
-
-Applications can progress through:
+Make sure Redis is running on:
 
 ```text
-Applied → Shortlisted → Selected
-                      ↘
-                       Rejected
+localhost:6379
 ```
 
-### 7. Centralized Placement Records
+#### Windows
 
-The Placement entity provides historical tracking of successful student-company-job relationships.
+If Redis is installed in `C:\Redis`:
 
----
+```powershell
+cd C:\Redis
+.\redis-server.exe
+```
 
-# 📊 Feature Summary
+Keep this terminal running.
 
-| Feature              | Status      |
-| -------------------- | ----------- |
-| Student Registration | Implemented |
-| Company Registration | Implemented |
-| Admin Management     | Implemented |
-| Token Authentication | Implemented |
-| Role-Based Access    | Implemented |
-| Student Profiles     | Implemented |
-| Company Profiles     | Implemented |
-| Placement Drives     | Implemented |
-| Job Applications     | Implemented |
-| Application Status   | Implemented |
-| Placement Tracking   | Implemented |
-| REST API             | Implemented |
-| Redis Caching        | Implemented |
-| Celery Tasks         | Implemented |
-| Celery Beat          | Implemented |
-| CSV Export           | Implemented |
-| PDF Generation       | Implemented |
+Verify Redis from another terminal:
 
----
+```powershell
+redis-cli ping
+```
 
-# 🏁 Conclusion
+Expected:
 
-CareerLink demonstrates the development of a complete **Placement Portal Application** designed to streamline campus recruitment activities.
+```text
+PONG
+```
 
-The project combines a Flask RESTful backend with a Vue.js 3 Single Page Application and integrates SQLite, Flask-SQLAlchemy, Flask-Security-Too, Redis, Flask-Caching, Celery, and Celery Beat.
+### 3. Set up the backend
 
-The system provides dedicated workflows for **Administrators, Students, and Companies**, allowing the complete placement process to be managed through a centralized platform.
+Open a new terminal:
 
-From company approval and placement-drive creation to student applications, application status tracking, and placement history, CareerLink provides an end-to-end digital workflow for campus recruitment.
+```powershell
+cd CareerLink\backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python app.py
+```
 
-The use of asynchronous processing and caching additionally demonstrates practical considerations for application performance and scalability.
+The Flask development server should start locally.
 
-Overall, CareerLink demonstrates practical knowledge of **full-stack development, REST API design, authentication, database architecture, asynchronous processing, caching, and modern frontend development**.
+Keep this terminal running.
 
----
+### 4. Start the frontend
 
-# 👨‍💻 Author
+Open another terminal:
+
+```powershell
+cd CareerLink\frontend
+npm install
+npm run dev
+```
+
+Open the local URL printed by Vite in the terminal.
+
+### 5. Start the Celery worker
+
+Open another terminal:
+
+```powershell
+cd CareerLink\backend
+.\venv\Scripts\Activate.ps1
+celery -A app.celery_app worker --loglevel=info --pool=solo
+```
+
+Keep the worker running.
+
+### 6. Start Celery Beat
+
+Open another terminal:
+
+```powershell
+cd CareerLink\backend
+.\venv\Scripts\Activate.ps1
+celery -A app.celery_app beat --loglevel=info
+```
+
+Keep the scheduler running if you want the scheduled tasks to execute.
+
+### Running services
+
+For the complete local setup, you will normally have these processes running:
+
+```text
+Redis
+  |
+  +-- Flask backend
+  |
+  +-- Celery worker
+  |
+  +-- Celery Beat
+  |
+  +-- Vue/Vite frontend
+```
+
+## Development Notes
+
+### Development database
+
+The application is configured to use SQLite:
+
+```text
+sqlite:///site.db
+```
+
+The database is created/initialized when the Flask application starts.
+
+### Development admin account
+
+`backend/app.py` creates a development admin account when one does not already exist.
+
+For security, do not rely on the hard-coded development credentials for a real deployment. Replace the initialization approach with environment-based credentials or an explicit setup process.
+
+### Configuration
+
+Redis endpoints and authentication configuration are currently defined in the backend source.
+
+For production deployment, move secrets and environment-specific configuration into environment variables or a dedicated configuration system.
+
+## Security Notes
+
+This repository is an academic/development project and is **not presented as production-ready**.
+
+Before deploying it publicly or to a real institution:
+
+- Remove hard-coded secrets and webhook credentials.
+- Move secret keys, salts, and service credentials to environment variables.
+- Replace development/default admin credentials.
+- Review token and session configuration.
+- Restrict CORS to trusted origins.
+- Replace SQLite with a production database if required.
+- Add stronger validation and error handling.
+- Add automated unit, integration, and end-to-end tests.
+- Review file-download authorization and generated-file lifecycle.
+- Use HTTPS in deployed environments.
+
+## Known Limitations
+
+- SQLite is used as the current database.
+- The project does not include a full automated test suite.
+- Advanced recommendation/matching features are not implemented.
+- The monthly report is HTML-based rather than a general PDF reporting system.
+- Notification integrations contain demonstration-oriented code and should be configured safely before deployment.
+- Production deployment configuration is not included.
+
+## Future Improvements
+
+Potential extensions include:
+
+- Resume parsing and job matching
+- Skill-based candidate ranking
+- Job recommendations
+- Advanced placement analytics
+- Real-time notifications
+- PostgreSQL support
+- Docker-based deployment
+- Cloud deployment
+- Centralized configuration and secrets management
+- Expanded automated testing
+- Production-grade monitoring and logging
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
+
+## Academic Project
+
+CareerLink was developed as an academic full-stack project to explore:
+
+- Full-stack web development
+- REST API design
+- Authentication and role-based authorization
+- Relational database modeling
+- Vue.js frontend development
+- Asynchronous processing with Celery
+- Redis caching and task brokering
+- Scheduled background jobs
+- Data export workflows
+- Git and GitHub-based development
+
+## Author
 
 **Bhushan Dattatray Sonawane**
 
-**Roll No.:** 23f2003210
+- Program: BS Degree in Data Science and Applications
+- Institute: IIT Madras
+- Project: CareerLink — Placement Portal
 
-**Program:** BS Degree in Data Science and Applications
+## Acknowledgment
 
-**Institute:** IIT Madras
-
-**Project:** CareerLink – Placement Portal Application
-
-**Focus:** Full-Stack Web Development, REST APIs, Database Systems, Authentication & Scalable Application Architecture
-
----
-
-## 📜 Project Declaration
-
-This project was developed as an academic project to design and implement a modern placement portal capable of managing interactions between students, companies, and administrators.
-
-The implementation combines modern frontend and backend technologies with database management, authentication, caching, asynchronous processing, and data export capabilities.
+AI-assisted development tools were used during development for selected coding and documentation tasks. The project was integrated, tested, and debugged as part of the development process.
