@@ -1,7 +1,5 @@
 # CareerLink
 
-
-
 > A full-stack placement portal for managing students, companies, job opportunities, applications, and placement records.
 
 [![Vue.js](https://img.shields.io/badge/Frontend-Vue.js%203-42b883?logo=vue.js&logoColor=white)](https://vuejs.org/)
