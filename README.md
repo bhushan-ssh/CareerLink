@@ -6,7 +6,7 @@
 [![Flask](https://img.shields.io/badge/Backend-Flask-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![Redis](https://img.shields.io/badge/Cache%2FBroker-Redis-dc382d?logo=redis&logoColor=white)](https://redis.io/)
 [![Celery](https://img.shields.io/badge/Tasks-Celery-37814a?logo=celery&logoColor=white)](https://docs.celeryq.dev/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE) 
 
 ## Overview
 
