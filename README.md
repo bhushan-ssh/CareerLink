@@ -1,4 +1,4 @@
-# CareerLink
+# CareerLink 
 
 > A full-stack placement portal for managing students, companies, job opportunities, applications, and placement records.
 
