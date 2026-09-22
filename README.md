@@ -229,20 +229,14 @@ The main entities are:
 - `Application` — relationship between a student and a job, including status, feedback, and interview date.
 - `Placement` — records a successful placement associated with a student, company, job, and application.
 
-Simplified relationship:
+## Entity-Relationship Diagram
 
-```text
-User
-├── Student
-│    ├── Applications ──> Job
-│    └── Placement
-│
-├── Company
-│    ├── Jobs ──> Applications
-│    └── Placements
-│
-└── Roles
-```
+The following ER diagram shows the main database entities and their relationships in CareerLink.
+
+<p align="center">
+  <img src="assets/screenshots/database-erd.png" width="100%" alt="CareerLink Entity-Relationship Diagram">
+</p>
+
 
 ## Background Processing
 
